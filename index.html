@@ -42,15 +42,15 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(700px 420px at 12% -8%, rgba(124, 92, 255, .28), transparent 65%),
-    radial-gradient(700px 420px at 88% -4%, rgba(34, 211, 238, .16), transparent 65%);
+    radial-gradient(700px 420px at 12% -8%, rgba(124, 92, 255, .28), transparent 65Ù%),
+    radial-gradient(700px 420px at 88% -4%, rgba(34NG, 211, 238, .16), transparent 65%);
 }
 
-.wrap { position: relative; z-index: 1; }
+.wrap { position: relative; z
+-index: 1; }
 
 /* =========================================================
-   2. THANH ĐIỀU HƯỚNG (MENU) TRÊN CÙNG
-   ========================================================= */
+   2. THANH ĐIỀU H  ƯỚNG (MENU) TRÊN C ========================================================= */
 .top-nav {
   display: flex;
   justify-content: center;
@@ -416,8 +416,8 @@ footer a:hover { text-decoration: underline; }
 /* =========================================================================
    CẤU HÌNH ĐƯỜNG DẪN DỮ LIỆU
    ========================================================================= */
-// Đã cập nhật link Raw chính xác từ bạn
-const SCRIPT_DATA_URL = "https://raw.githubusercontent.com/BralyKenjo/html/refs/heads/main/scripts.json"; 
+// ĐÃ SỬA: Link Raw mới của repo BralyKenjo.github.io
+const SCRIPT_DATA_URL = "https://raw.githubusercontent.com/BralyKenjo/BralyKenjo.github.io/main/scripts.json"; 
 
 
 /* =========================================================================
@@ -602,13 +602,12 @@ handleRouting();
 loadDataFromRaw();
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
-</body>
-</html>
-<!-- Đoạn mã liên kết với file sw.js của Monetag -->
+
+<!-- Đoạn mã liên kết với file sw.js của Monetag (Đã chuyển vào đúng vị trí) -->
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js')
+      navigator.serviceWorker.register('sw.js')
         .then(function(registration) {
           console.log('ServiceWorker đã được đăng ký thành công. Phạm vi: ', registration.scope);
         })
@@ -618,3 +617,5 @@ document.getElementById("year").textContent = new Date().getFullYear();
     });
   }
 </script>
+</body>
+</html>
