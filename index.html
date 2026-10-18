@@ -6,12 +6,6 @@
 <title>Script Hub — Steal An Egg &amp; Blox Fruits</title>
 <meta name="description" content="Tổng hợp script Steal An Egg và Blox Fruits, cập nhật thường xuyên." />
 
-<!-- =========================================================
-   MÃ QUẢNG CÁO MONETAG (MULTITAG / POPUNDER) - ĐẶT TẠI ĐÂY
-   ========================================================= -->
-<script src="https://quge5.com/88/tag.min.js" data-zone="297701" async data-cfasync="false"></script>
-
-
 <style>
 /* =========================================================
    1. BIẾN MÀU & RESET CƠ BẢN
@@ -74,7 +68,7 @@ body::before {
 
 .nav-link {
   color: var(--muted);
-  textfff-decoration: none;
+  text-decoration: none;
   font-size: 14px;
   font-weight: 600;
   padding: 8px 16px;
@@ -84,13 +78,13 @@ body::before {
 }
 
 .nav-link:hover {
-  color: var;
-(--text);
+  color: var(--text);
   background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-link.active {
-  color: #  background: rgba(124, 92, 255, 0.2);
+  color: #fff;
+  background: rgba(124, 92, 255, 0.2);
   border: 1px solid rgba(124, 92, 255, 0.4);
   box-shadow: 0 0 15px rgba(124, 92, 255, 0.2);
 }
@@ -422,11 +416,7 @@ footer a:hover { text-decoration: underline; }
 /* =========================================================================
    CẤU HÌNH ĐƯỜNG DẪN DỮ LIỆU
    ========================================================================= */
-const SCRIPT_DATA_URL = "https://raw.githubusercontent.com/BralyKenjo/BralyKenjo.github.io/main/scripts.json"; 
-
-/* ĐƯỜNG DẪN QUẢNG CÁO DIRECT LINK (Dùng khi click Copy) */
-const DIRECT_AD_URL = "https://uplcm.com/4/12061759";
-
+const SCRIPT_DATA_URL = "https://raw.githubusercontent.com/BralyKenjo/BralyKenjo.github.io/main/scripts.json";
 
 /* =========================================================================
    PHẦN LOGIC CHUYỂN TRANG (ROUTING)
@@ -469,7 +459,6 @@ function showToast(message) {
   toastEl.textContent = message;
   toastEl.classList.add("show");
   clearTimeout(toastTimer);
-  // ✅ THÔNG BÁO HIỂN THỊ 1 GIÂY (1000ms)
   toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1000);
 }
 
@@ -524,20 +513,14 @@ function buildCard(script, index) {
   const copyBtn = card.querySelector(".btn-copy-icon");
 
   copyBtn.addEventListener("click", async () => {
-    // 1. Copy script vào clipboard
     const ok = await copyToClipboard(script.code || "");
     if (!ok) return showToast("❌ Không thể copy, hãy thử lại!");
-    
-    // 2. Hiển thị thông báo + đổi icon
+
     copyBtn.classList.add("copied");
     copyBtn.innerHTML = SVG_CHECK;
     showToast("✅ Đã copy: " + script.name);
-    
-    // 3. KÍCH HOẠT QUẢNG CÁO DIRECT LINK (Nâng cao)
-    window.open(DIRECT_AD_URL, '_blank');
 
     clearTimeout(copyBtn._timer);
-    // ✅ ICON NÚT COPY TRỞ VỀ BÌNH THƯỜNG SAU 1 GIÂY (1000ms)
     copyBtn._timer = setTimeout(() => {
       copyBtn.classList.remove("copied");
       copyBtn.innerHTML = SVG_COPY;
@@ -618,21 +601,6 @@ async function loadDataFromRaw() {
 handleRouting();
 loadDataFromRaw();
 document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
-<!-- Đoạn mã liên kết với file sw.js của Monetag -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('sw.js')
-        .then(function(registration) {
-          console.log('ServiceWorker đã được đăng ký thành công. Phạm vi: ', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Đăng ký ServiceWorker thất bại: ', error);
-        });
-    });
-  }
 </script>
 </body>
 </html>
