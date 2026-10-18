@@ -6,6 +6,12 @@
 <title>Script Hub — Steal An Egg &amp; Blox Fruits</title>
 <meta name="description" content="Tổng hợp script Steal An Egg và Blox Fruits, cập nhật thường xuyên." />
 
+<!-- =========================================================
+   MÃ QUẢNG CÁO MONETAG (MULTITAG / POPUNDER) - ĐẶT TẠI ĐÂY
+   ========================================================= -->
+<script src="https://quge5.com/88/tag.min.js" data-zone="297701" async data-cfasync="false"></script>
+
+
 <style>
 /* =========================================================
    1. BIẾN MÀU & RESET CƠ BẢN
@@ -42,15 +48,15 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(700px 420px at 12% -8%, rgba(124, 92, 255, .28), transparent 65Ù%),
-    radial-gradient(700px 420px at 88% -4%, rgba(34NG, 211, 238, .16), transparent 65%);
+    radial-gradient(700px 420px at 12% -8%, rgba(124, 92, 255, .28), transparent 65%),
+    radial-gradient(700px 420px at 88% -4%, rgba(34, 211, 238, .16), transparent 65%);
 }
 
-.wrap { position: relative; z
--index: 1; }
+.wrap { position: relative; z-index: 1; }
 
 /* =========================================================
-   2. THANH ĐIỀU H  ƯỚNG (MENU) TRÊN C ========================================================= */
+   2. THANH ĐIỀU HƯỚNG (MENU) TRÊN CÙNG
+   ========================================================= */
 .top-nav {
   display: flex;
   justify-content: center;
@@ -260,8 +266,8 @@ main {
   border: 1px solid rgba(124, 92, 255, .35);
 }
 
-.card-title { margin: 0 0 4px; font-size: 15.5px; font-weight: 600; letter-spacing: .2px; }
-.card-desc { margin: 0; font-size: 13px; line-height: 1.55; color: var(--muted); }
+.card-title { margin: 0 0 4px; font-size:  font15.5px; font-weight: 600; letter-spacing: .2px; }
+.card-desc { margin: 0;-size: 13px; line-height: 1.55; color: var(--muted); }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag {
@@ -416,8 +422,10 @@ footer a:hover { text-decoration: underline; }
 /* =========================================================================
    CẤU HÌNH ĐƯỜNG DẪN DỮ LIỆU
    ========================================================================= */
-// ĐÃ SỬA: Link Raw mới của repo BralyKenjo.github.io
 const SCRIPT_DATA_URL = "https://raw.githubusercontent.com/BralyKenjo/BralyKenjo.github.io/main/scripts.json"; 
+
+/* ĐƯỜNG DẪN QUẢNG CÁO DIRECT LINK (Dùng khi click Copy) */
+const DIRECT_AD_URL = "https://uplcm.com/4/12061759";
 
 
 /* =========================================================================
@@ -515,11 +523,19 @@ function buildCard(script, index) {
   const copyBtn = card.querySelector(".btn-copy-icon");
 
   copyBtn.addEventListener("click", async () => {
+    // 1. Copy script vào clipboard
     const ok = await copyToClipboard(script.code || "");
     if (!ok) return showToast("❌ Không thể copy, hãy thử lại!");
+    
+    // 2. Hiển thị thông báo
     copyBtn.classList.add("copied");
     copyBtn.innerHTML = SVG_CHECK;
     showToast("✅ Đã copy: " + script.name);
+    
+    // 3. KÍCH HOẠT QUẢNG CÁO DIRECT LINK (Nâng cao)
+    // Mở link quảng cáo ở tab mới (được phép vì có tương tác click của người dùng)
+    window.open(DIRECT_AD_URL, '_blank');
+
     clearTimeout(copyBtn._timer);
     copyBtn._timer = setTimeout(() => {
       copyBtn.classList.remove("copied");
@@ -603,7 +619,7 @@ loadDataFromRaw();
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
-<!-- Đoạn mã liên kết với file sw.js của Monetag (Đã chuyển vào đúng vị trí) -->
+<!-- Đoạn mã liên kết với file sw.js của Monetag -->
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
