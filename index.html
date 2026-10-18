@@ -74,7 +74,7 @@ body::before {
 
 .nav-link {
   color: var(--muted);
-  text-decoration: none;
+  textfff-decoration: none;
   font-size: 14px;
   font-weight: 600;
   padding: 8px 16px;
@@ -84,13 +84,13 @@ body::before {
 }
 
 .nav-link:hover {
-  color: var(--text);
+  color: var;
+(--text);
   background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-link.active {
-  color: #fff;
-  background: rgba(124, 92, 255, 0.2);
+  color: #  background: rgba(124, 92, 255, 0.2);
   border: 1px solid rgba(124, 92, 255, 0.4);
   box-shadow: 0 0 15px rgba(124, 92, 255, 0.2);
 }
@@ -266,8 +266,8 @@ main {
   border: 1px solid rgba(124, 92, 255, .35);
 }
 
-.card-title { margin: 0 0 4px; font-size:  font15.5px; font-weight: 600; letter-spacing: .2px; }
-.card-desc { margin: 0;-size: 13px; line-height: 1.55; color: var(--muted); }
+.card-title { margin: 0 0 4px; font-size: 15.5px; font-weight: 600; letter-spacing: .2px; }
+.card-desc { margin: 0; font-size: 13px; line-height: 1.55; color: var(--muted); }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag {
@@ -469,7 +469,8 @@ function showToast(message) {
   toastEl.textContent = message;
   toastEl.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1800);
+  // ✅ THÔNG BÁO HIỂN THỊ 1 GIÂY (1000ms)
+  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1000);
 }
 
 async function copyToClipboard(text) {
@@ -527,20 +528,20 @@ function buildCard(script, index) {
     const ok = await copyToClipboard(script.code || "");
     if (!ok) return showToast("❌ Không thể copy, hãy thử lại!");
     
-    // 2. Hiển thị thông báo
+    // 2. Hiển thị thông báo + đổi icon
     copyBtn.classList.add("copied");
     copyBtn.innerHTML = SVG_CHECK;
     showToast("✅ Đã copy: " + script.name);
     
     // 3. KÍCH HOẠT QUẢNG CÁO DIRECT LINK (Nâng cao)
-    // Mở link quảng cáo ở tab mới (được phép vì có tương tác click của người dùng)
     window.open(DIRECT_AD_URL, '_blank');
 
     clearTimeout(copyBtn._timer);
+    // ✅ ICON NÚT COPY TRỞ VỀ BÌNH THƯỜNG SAU 1 GIÂY (1000ms)
     copyBtn._timer = setTimeout(() => {
       copyBtn.classList.remove("copied");
       copyBtn.innerHTML = SVG_COPY;
-    }, 1600);
+    }, 1000);
   });
 
   return card;
