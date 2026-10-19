@@ -36,6 +36,13 @@
       "code": "loadstring(game:HttpGet(\"https://luauforge-antiraw.netlify.app/raw/PbH2PY0CcCfqagUKTjCMnj1\"))()"
     },
     {
+      "name": "Chilli Hub V6 Pro",
+      "desc": "Phiên bản V6 Pro nâng cấp của Chilli Hub, tối ưu hóa tính năng và hiệu suất cho Steal An Egg.",
+      "tags": ["Hub", "V6", "Pro"],
+      "icon": "🔥",
+      "code": "loadstring(game:HttpGet(\"https://luauforge-antiraw.netlify.app/raw/chilli-hub-v6-pro-9EaKhq7hBmpLHwCDnuEnqLR\"))()"
+    },
+    {
       "name": "Chilli Việt Hóa",
       "desc": "Bản Việt hóa của Chilli Hub, giao diện tiếng Việt dễ sử dụng.",
       "tags": ["Hub", "Việt Hóa"],
