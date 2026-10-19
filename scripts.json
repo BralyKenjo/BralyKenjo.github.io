@@ -1,7 +1,6 @@
 {
   "stealAnEgg": [
-    {
-      "name": "Night Hub",
+   name": "Night Hub",
       "desc": "Hub chuyên hoạt động về đêm, tối ưu cho việc treo máy auto.",
       "tags": ["Hub", "Auto"],
       "icon": "🌙",
@@ -50,6 +49,111 @@
       "code": "loadstring(game:HttpGet(\"https://github.com/BralyKenjo/T-ng-h-p/raw/refs/heads/main/Crack%20Chilli%20Hub%20V2\"))()"
     },
     {
+      "name": "Realkidhub",
+      "desc": "Hub tổng hợp script Steal An Egg.",
+      "tags": ["Hub"],
+      "icon": "🧩",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/realkidhub/realkid/refs/heads/main/main.lua\"))()"
+    },
+    {
+      "name": "Lennon Hub",
+      "desc": "Hub script Steal An Egg.",
+      "tags": ["Hub"],
+      "icon": "🎯",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/lennonxscripts/lennonfarmv2/refs/heads/main/stealanegg\"))()"
+    },
+    {
+      "name": "Miranda Kaitun",
+      "desc": "Script Kaitun cho Steal An Egg.",
+      "tags": ["Kaitun"],
+      "icon": "🌿",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kadit9999/stealanegg/refs/heads/main/kaitunmirage.lua\"))()"
+    },
+    {
+      "name": "Novahub",
+      "desc": "Hub script Steal An Egg.",
+      "tags": ["Hub"],
+      "icon": "✨",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2\"))()"
+    },
+    {
+      "name": "Published.gg",
+      "desc": "Script từ Published.gg.",
+      "tags": ["Script"],
+      "icon": "🌐",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/PulseZax/Loader/refs/heads/main/.lua\"))()"
+    },
+    {
+      "name": "Zeroin",
+      "desc": "Hub tập trung vào tốc độ trộm trứng và tối ưu hóa FPS.",
+      "tags": ["Hub", "FPS"],
+      "icon": "🎯",
+      "code": "loadstring(game:HttpGet(\"https://zeroinhub.com/api/script\"))()"
+    },
+    {
+      "name": "Limbo Hub",
+      "desc": "Hub hỗ trợ các tính năng auto steal, auto event, farm level.",
+      "tags": ["Hub", "Farm"],
+      "icon": "🌀",
+      "code": "loadstring(game:HttpGet(\"https://limbohub.my.id/loader.lua\"))()"
+    },
+    {
+      "name": "Yokudo",
+      "desc": "Script Steal An Egg.",
+      "tags": ["Script"],
+      "icon": "🀄",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ahchlon/stealanegg/refs/heads/main/Loader.lua\"))()"
+    },
+    {
+      "name": "Hop sever",
+      "desc": "Script hop server.",
+      "tags": ["Hop"],
+      "icon": "🔄",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bn130189-lgtm/Script-hop-sever-/main/script.lua\"))()"
+    },
+    {
+      "name": "LKZ hub",
+      "desc": "Hub script Steal An Egg.",
+      "tags": ["Hub"],
+      "icon": "🔰",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/LucasggkX/LKZ-Hub/refs/heads/main/Loader.lua\"))()"
+    },
+    {
+      "name": "virex",
+      "desc": "Script Steal An Egg.",
+      "tags": ["Script"],
+      "icon": "💊",
+      "code": "loadstring(game:HttpGet(\"https://cdn.luaprotect.dev/u/d54728/opayBjBoTOupFlth\"))()"
+    },
+    {
+      "name": "simple shader",
+      "desc": "Simple shader script.",
+      "tags": ["Shader"],
+      "icon": "🎨",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/robloxscripts2026/simple-shader/refs/heads/main/lua\"))()"
+    },
+    {
+      "name": "sources hub",
+      "desc": "Hub script Steal An Egg.",
+      "tags": ["Hub"],
+      "icon": "📚",
+      "code": "loadstring(game:HttpGet(\"https://gist.githubusercontent.com/sourceshubs/1737c14cdba5c6fb472a995d555a50f1/raw/SourcesHubInstantStealNew\"))()"
+    },
+    {
+      "name": "chilli v6 nokey update Halloween",
+      "desc": "Chilli Hub V6 Pro bản Halloween, không cần key.",
+      "tags": ["Hub", "V6", "Halloween"],
+      "icon": "🎃",
+      "code": "loadstring(game:HttpGet(\"https://id.tomroblox.com/raw/kairoblox/chilli-x-venyx-viet-hoa-v6-vip-pro98\"))()"
+    },
+    {
+      "name": "chilli v6 pro nokey update Halloween",
+      "desc": "Chilli Hub V6 Pro bản Halloween, không cần key.",
+      "tags": ["Hub", "V6", "Halloween"],
+      "icon": "🎃",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kadit9999/stealanegg/refs/heads/main/ChilliV5BaKhi.lua\"))()"
+    },
+    {
       "name": "BigFroot",
       "desc": "Script tổng hợp nhiều chức năng auto farm, auto steal cho Steal An Egg.",
       "tags": ["Hub", "Auto"],
@@ -69,13 +173,6 @@
       "tags": ["Hub", "Speed"],
       "icon": "☁️",
       "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/CloutHub/Scripts/main/StealAnEgg.lua\"))()"
-    },
-    {
-      "name": "Limbo Hub",
-      "desc": "Hub hỗ trợ các tính năng auto steal, auto event, farm level.",
-      "tags": ["Hub", "Farm"],
-      "icon": "🌀",
-      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/LimboHub/Scripts/main/StealAnEgg.lua\"))()"
     },
     {
       "name": "Lemon Hub",
@@ -134,13 +231,6 @@
       "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/SeraHub/Scripts/main/StealAnEgg.lua\"))()"
     },
     {
-      "name": "Zeroin Hub",
-      "desc": "Hub tập trung vào tốc độ trộm trứng và tối ưu hóa FPS.",
-      "tags": ["Hub", "FPS"],
-      "icon": "🎯",
-      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ZeroinHub/Scripts/main/StealAnEgg.lua\"))()"
-    },
-    {
       "name": "Script Steal An Egg Full Tiếng Việt",
       "desc": "Script tổng hợp toàn bộ chức năng, đã được Việt hóa hoàn toàn.",
       "tags": ["Việt Hóa", "Full"],
@@ -162,5 +252,41 @@
       "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AutoHub/Scripts/main/AutoStealHop.lua\"))()"
     }
   ],
-  "bloxFruits": []
+  "bloxFruits": [
+    {
+      "name": "Blox fruit updated 30",
+      "desc": "Script Blox Fruit cập nhật 30.",
+      "tags": ["Blox Fruit"],
+      "icon": "🍇",
+      "code": "loadstring(game:HttpGet(\"https://isnahamzah.site/SubscribeYTisnahamzah/gantenghub30\"))()"
+    },
+    {
+      "name": "Bacon hub",
+      "desc": "Bacon Hub cho Blox Fruit.",
+      "tags": ["Hub", "Blox Fruit"],
+      "icon": "🥓",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Dev-BaconHub/hack/refs/heads/main/Bloxfruits.lua\"))()"
+    },
+    {
+      "name": "Lavz hub",
+      "desc": "Lavz Hub cho Blox Fruit.",
+      "tags": ["Hub", "Blox Fruit"],
+      "icon": "🌋",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bloxfruitsnokey/Redz-Hub/refs/heads/main/Lavz/script.luau\"))()"
+    },
+    {
+      "name": "Db hub",
+      "desc": "Db Hub cho Blox Fruit.",
+      "tags": ["Hub", "Blox Fruit"],
+      "icon": "🐉",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bloxfruitsnokey/Banana/refs/heads/main/DB/script.luau\"))()"
+    },
+    {
+      "name": "Ducz hub",
+      "desc": "Ducz Hub cho Blox Fruit.",
+      "tags": ["Hub", "Blox Fruit"],
+      "icon": "🦆",
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/duczsitink/DUCKHUB/refs/heads/main/main.lua\"))()"
+    }
+  ]
 }
