@@ -1,6 +1,7 @@
 {
   "stealAnEgg": [
-   name": "Night Hub",
+    {
+      "name": "Night Hub",
       "desc": "Hub chuyên hoạt động về đêm, tối ưu cho việc treo máy auto.",
       "tags": ["Hub", "Auto"],
       "icon": "🌙",
