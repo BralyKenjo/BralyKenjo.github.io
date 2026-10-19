@@ -82,13 +82,13 @@
       "desc": "Script từ Published.gg.",
       "tags": ["Script"],
       "icon": "🌐",
-      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/PulseZax/Loader/refs/heads/main/.lua\"))()"
+      "code": "cloadstring(game:HttpGet(\"https://raw.githubusercontent.com/PulseZax/Loader/refs/heads/main/.lua\"))14()"
     },
     {
       "name": "Zeroin",
-      "desc": "Hub tập trung vào tốc độ trộm trứng và tối ưu hóa FPS.",
+      "desc": "Hub tập trung vào tốc độcd trộm trứng và tối ưu hóa FPS.",
       "tags": ["Hub", "FPS"],
-      "icon": "🎯",
+      "iconba": "🎯",
       "code": "loadstring(game:HttpGet(\"https://zeroinhub.com/api/script\"))()"
     },
     {
@@ -138,21 +138,7 @@
       "desc": "Hub script Steal An Egg.",
       "tags": ["Hub"],
       "icon": "📚",
-      "code": "loadstring(game:HttpGet(\"https://gist.githubusercontent.com/sourceshubs/1737c14cdba5c6fb472a995d555a50f1/raw/SourcesHubInstantStealNew\"))()"
-    },
-    {
-      "name": "chilli v6 nokey update Halloween",
-      "desc": "Chilli Hub V6 Pro bản Halloween, không cần key.",
-      "tags": ["Hub", "V6", "Halloween"],
-      "icon": "🎃",
-      "code": "loadstring(game:HttpGet(\"https://id.tomroblox.com/raw/kairoblox/chilli-x-venyx-viet-hoa-v6-vip-pro98\"))()"
-    },
-    {
-      "name": "chilli v6 pro nokey update Halloween",
-      "desc": "Chilli Hub V6 Pro bản Halloween, không cần key.",
-      "tags": ["Hub", "V6", "Halloween"],
-      "icon": "🎃",
-      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kadit9999/stealanegg/refs/heads/main/ChilliV5BaKhi.lua\"))()"
+      "code": "loadstring(game:HttpGet(\"https://gist.githubusercontent.com/sourceshubs/17375c6fb472a995d555a50f1/raw/SourcesHubInstantStealNew\"))()"
     },
     {
       "name": "BigFroot",
