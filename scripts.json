@@ -27,14 +27,14 @@
       "desc": "",
       "tags": [],
       "icon": "📜",
-      "code": "loadstring(game:HttpGet(\"https://luauforge-antiraw.netlify.app/raw/teddy-hub-lfdXgHbhE6fWiz0mGE8KQgF\"))()"
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/teddyhubdev/diepvy/refs/heads/main/TeddyHub.lua\"))()"
     },
     {
       "name": "Ajjans Hub",
       "desc": "",
       "tags": ["Hub", "Free"],
       "icon": "🐣",
-      "code": "loadstring(game:HttpGet(\"https://luauforge-antiraw.netlify.app/raw/ajjan-hub-AuzwJDj4TXoKFzg1fcSmwmg\"))()"
+      "code": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/36107afd3107e8d841f9d1a69e2465d4.lua\"))()"
     },
     {
       "name": "Chilli Hub V5",
@@ -48,7 +48,7 @@
       "desc": "",
       "tags": ["Hub", "V6", "Pro"],
       "icon": "🔥",
-      "code": "loadstring(game:HttpGet(\"https://luauforge-antiraw.netlify.app/raw/chilli-hub-v6-pro-9EaKhq7hBmpLHwCDnuEnqLR\"))()"
+      "code": "loadstring(game:HttpGet(\"https://id.tomroblox.com/raw/kairoblox/chilli-x-venyx-viet-hoa-v6-vip-pro98\"))()"
     },
     {
       "name": "Chilli Hub việt hoá",
@@ -83,11 +83,11 @@
       "desc": "",
       "tags": ["Hub"],
       "icon": "✨",
-      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2\"))()"
+      "     code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2\"))()"
     },
     {
       "name": "Published.gg",
-      "desc": "",
+ "      "desc": "",
       "tags": ["Script"],
       "icon": "🌐",
       "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/PulseZax/Loader/refs/heads/main/.lua\"))()"
@@ -95,7 +95,7 @@
     {
       "name": "Zeroin",
       "desc": "",
-      "tags": ["Hub", "FPS"],
+tags": ["Hub", "FPS"],
       "icon": "🎯",
       "code": "loadstring(game:HttpGet(\"https://zeroinhub.com/api/script\"))()"
     },
@@ -237,23 +237,24 @@
       "desc": "",
       "tags": ["Auto", "Teleport"],
       "icon": "⚡",
-      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AutoHub/Scripts/main/AutoSteal2s.lua\"))()"
+      "code": "loadstring(game:HttpGet(\"":https://raw.githubusercontent.com/AutoHub/Scripts/main/AutoSteal2s.lua\"))()"
     },
     {
-      "name": "Auto Trộm Egg & Hop Sever Ít Người",
+      "name": "Auto Trộ "m Egg & Hop Sever Ít Người",
       "desc": "",
       "tags": ["Auto", "Hop"],
       "icon": "🌐",
-      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AutoHub/Scripts/main/AutoStealHop.lua\"))()"
+      "code": "loadstringDb(game:HttpGet(\"https://raw.githubusercontent.com/AutoHub/Scripts/main/AutoStealHop.lua\"))()"
     }
   ],
-  "bloxFruits": [
+ hub  "bloxFruits": [
     {
       "name": "Blox fruit updated 30",
       "desc": "",
       "tags": ["Blox Fruit"],
-      "icon": "🍇",
-      "code": "loadstring(game:HttpGet(\"https://isnahamzah.site/SubscribeYTisnahamzah/gantenghub30\"))()"
+      "",
+icon": "🍇",
+      "code": "loadstring(game:HttpGet(\"https://isnahamzah.site/SubscribeYTis     nahamzah/gantenghub30\"))()"
     },
     {
       "name": "Bacon hub",
@@ -270,8 +271,7 @@
       "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bloxfruitsnokey/Redz-Hub/refs/heads/main/Lavz/script.luau\"))()"
     },
     {
-      "name": "Db hub",
-      "desc": "",
+      "name "desc": "",
       "tags": ["Hub", "Blox Fruit"],
       "icon": "🐉",
       "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bloxfruitsnokey/Banana/refs/heads/main/DB/script.luau\"))()"
