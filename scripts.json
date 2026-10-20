@@ -6,7 +6,7 @@
       "tags": ["Tiện Lợi", "Ghim"],
       "icon": "🔧",
       "pinned": true,
-      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/BralyKenjo/BraKyo/main/BraKyoHub\"))()"
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/BralyKenjo/BraKyo/refs/heads/main/BraKyo-Hub\"))()"
     },
     {
       "name": "Night Hub",
