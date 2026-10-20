@@ -2,7 +2,7 @@
   "stealAnEgg": [
     {
       "name": "BraKyo Hub",
-      "desc": "Hub tổng hợp, quá là ngon.",
+      "desc": "Hub tổng hợp, tiện lợi cho Steal An Egg.",
       "tags": ["Tiện Lợi", "Ghim"],
       "icon": "🔧",
       "pinned": true,
@@ -51,11 +51,11 @@
       "code": "loadstring(game:HttpGet(\"https://luauforge-antiraw.netlify.app/raw/chilli-hub-v6-pro-9EaKhq7hBmpLHwCDnuEnqLR\"))()"
     },
     {
-      "name": "Chilli Việt Hóa",
+      "name": "Chilli Hub việt hoá",
       "desc": "",
       "tags": ["Hub", "Việt Hóa"],
       "icon": "🇻🇳",
-      "code": "loadstring(game:HttpGet(\"https://github.com/BralyKenjo/T-ng-h-p/raw/refs/heads/main/Crack%20Chilli%20Hub%20V2\"))()"
+      "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kadit9999/stealanegg/refs/heads/main/chillimodrubu.lua\"))()"
     },
     {
       "name": "Realkidhub",
