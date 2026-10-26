@@ -1,606 +1,288 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Script Hub — Steal An Egg &amp; Blox Fruits</title>
-<meta name="description" content="Tổng hợp script Steal An Egg và Blox Fruits, cập nhật thường xuyên." />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng Hợp Script</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #1c1e21;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
 
-<style>
-/* =========================================================
-   1. BIẾN MÀU & RESET CƠ BẢN
-   ========================================================= */
-*, *::before, *::after { box-sizing: border-box; }
+        /* Header */
+        header { text-align: center; margin-bottom: 30px; }
+        header h1 { font-size: 2rem; color: #1877f2; margin-bottom: 8px; }
+        header p { color: #65676b; }
 
-:root {
-  --bg:        #0a0c11;
-  --card:      #141824;
-  --border:    #242a3a;
-  --text:      #e8ecf5;
-  --muted:     #8a93a8;
-  --accent:    #7c5cff;
-  --accent-2:  #22d3ee;
-  --ok:        #22c55e;
-  --radius:    14px;
-}
+        /* Thanh tìm kiếm */
+        .search-box {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 1px solid #dddfe2;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+        .search-box:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.15);
+        }
 
-html { scroll-behavior: smooth; }
+        /* Tabs danh mục (tự động tạo) */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e4e6eb;
+            padding-bottom: 10px;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #65676b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { background: #e4e6eb; color: #1c1e21; }
+        .tab-btn.active {
+            background: #1877f2;
+            color: #fff;
+        }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-}
+        /* Nội dung từng danh mục */
+        .category-section { display: none; }
+        .category-section.active { display: block; }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(700px 420px at 12% -8%, rgba(124, 92, 255, .28), transparent 65%),
-    radial-gradient(700px 420px at 88% -4%, rgba(34, 211, 238, .16), transparent 65%);
-}
+        /* Grid script */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .script-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .script-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        .script-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #1c1e21;
+            word-break: break-word;
+        }
+        .script-url {
+            font-size: 0.8rem;
+            color: #65676b;
+            word-break: break-all;
+            background: #f0f2f5;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+        .copy-btn {
+            margin-top: auto;
+            padding: 10px;
+            background: #1877f2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover { background: #166fe5; }
+        .copy-btn:active { transform: scale(0.97); }
 
-.wrap { position: relative; z-index: 1; }
+        /* Trạng thái tải / lỗi */
+        .status-msg {
+            text-align: center;
+            padding: 40px 20px;
+            color: #65676b;
+            font-size: 1rem;
+        }
+        .status-msg.error { color: #e41e3f; }
 
-/* =========================================================
-   2. THANH ĐIỀU HƯỚNG (MENU) TRÊN CÙNG
-   ========================================================= */
-.top-nav {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  padding: 16px 20px;
-  background: rgba(10, 12, 17, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  flex-wrap: wrap;
-}
-
-.nav-link {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.nav-link:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.nav-link.active {
-  color: #fff;
-  background: rgba(124, 92, 255, 0.2);
-  border: 1px solid rgba(124, 92, 255, 0.4);
-  box-shadow: 0 0 15px rgba(124, 92, 255, 0.2);
-}
-
-/* =========================================================
-   3. HEADER & SEARCH
-   ========================================================= */
-header {
-  padding: 40px 20px 8px;
-  text-align: center;
-}
-
-h1 {
-  margin: 0 0 12px;
-  font-size: clamp(28px, 5.2vw, 46px);
-  line-height: 1.1;
-  letter-spacing: -1px;
-  background: linear-gradient(90deg, #ffffff 10%, #b9a7ff 55%, #5eead4);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-header p {
-  margin: 0 auto;
-  max-width: 560px;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.search-wrap {
-  max-width: 460px;
-  margin: 26px auto 0;
-  position: relative;
-}
-
-.search-wrap svg {
-  position: absolute;
-  left: 14px; top: 50%;
-  transform: translateY(-50%);
-  width: 16px; height: 16px;
-  stroke: var(--muted);
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-#search {
-  width: 100%;
-  padding: 12px 16px 12px 40px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, .035);
-  color: var(--text);
-  font-size: 14px;
-  font-family: inherit;
-  outline: none;
-  transition: border-color .2s, box-shadow .2s;
-}
-
-#search::placeholder { color: #5f6879; }
-
-#search:focus {
-  border-color: rgba(124, 92, 255, .7);
-  box-shadow: 0 0 0 4px rgba(124, 92, 255, .15);
-}
-
-/* =========================================================
-   4. QUẢN LÝ CÁC TRANG (VIEWS)
-   ========================================================= */
-main {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 20px 60px;
-}
-
-.view { display: none; animation: fadeIn 0.3s ease; }
-.view.active { display: block; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hero-box {
-  text-align: center;
-  padding: 60px 20px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-top: 40px;
-}
-
-.hero-box h2 { font-size: 24px; margin-bottom: 10px; color: var(--accent-2); }
-.hero-box p { color: var(--muted); margin-bottom: 24px; }
-.btn-group { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-.btn-hero {
-  padding: 12px 24px;
-  border-radius: 10px;
-  background: var(--accent);
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.2s;
-}
-.btn-hero:hover { filter: brightness(1.1); transform: translateY(-2px); }
-
-/* =========================================================
-   5. GRID & CARD SCRIPT
-   ========================================================= */
-.section-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.section-head .bar {
-  width: 5px;
-  height: 24px;
-  border-radius: 99px;
-  background: linear-gradient(180deg, var(--accent), var(--accent-2));
-}
-
-.section-head h2 { margin: 0; font-size: 20px; letter-spacing: .2px; }
-
-.count {
-  font-size: 12px;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, .04);
-  padding: 3px 10px;
-  border-radius: 999px;
-}
-
-.grid {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-}
-
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012));
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px;
-  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(124, 92, 255, .55);
-  box-shadow: 0 18px 40px -22px rgba(124, 92, 255, .9);
-}
-
-.card-top { display: flex; gap: 12px; align-items: flex-start; }
-
-.card-icon {
-  flex: 0 0 38px;
-  width: 38px; height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  font-size: 18px;
-  background: linear-gradient(145deg, rgba(124, 92, 255, .28), rgba(34, 211, 238, .18));
-  border: 1px solid rgba(124, 92, 255, .35);
-}
-
-.card-title { margin: 0 0 4px; font-size: 15.5px; font-weight: 600; letter-spacing: .2px; }
-.card-desc { margin: 0; font-size: 13px; line-height: 1.55; color: var(--muted); }
-
-.tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag {
-  font-size: 10.5px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
-  color: #c4b5fd; background: rgba(124, 92, 255, .14); border: 1px solid rgba(124, 92, 255, .3);
-  padding: 3px 8px; border-radius: 6px;
-}
-
-.code-container { position: relative; margin-top: auto; }
-
-.code {
-  margin: 0;
-  padding: 32px 12px 12px 12px;
-  border-radius: 10px;
-  background: #0a0d14;
-  border: 1px solid var(--border);
-  color: #9fe8d0;
-  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
-  font-size: 11px;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  word-break: break-all;
-  max-height: 150px;
-  overflow-y: auto;
-}
-
-.btn-copy-icon {
-  position: absolute;
-  top: 8px; right: 8px;
-  display: flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  z-index: 2;
-}
-
-.btn-copy-icon:hover { background: rgba(124, 92, 255, 0.25); border-color: var(--accent); color: var(--text); transform: scale(1.05); }
-.btn-copy-icon.copied { background: rgba(34, 197, 94, 0.2); border-color: var(--ok); color: var(--ok); }
-.btn-copy-icon svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-/* =========================================================
-   6. TOAST + FOOTER + LOADING
-   ========================================================= */
-.toast {
-  position: fixed; left: 50%; bottom: 28px;
-  transform: translate(-50%, 20px);
-  display: flex; align-items: center; gap: 8px;
-  padding: 11px 20px; border-radius: 999px;
-  background: #16202b; border: 1px solid rgba(34, 197, 94, .5);
-  color: #d1fadf; font-size: 13.5px; font-weight: 600;
-  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .9);
-  opacity: 0; pointer-events: none;
-  transition: opacity .25s ease, transform .25s ease;
-  z-index: 999; max-width: 90vw; text-align: center;
-}
-.toast.show { opacity: 1; transform: translate(-50%, 0); }
-
-.loading-text {
-  text-align: center;
-  color: var(--muted);
-  padding: 40px;
-  font-size: 15px;
-  display: none;
-}
-
-footer {
-  position: relative; z-index: 1; text-align: center; padding: 0 20px 48px;
-  color: #5f6879; font-size: 13px; line-height: 1.7;
-}
-footer a { color: #a78bfa; text-decoration: none; }
-footer a:hover { text-decoration: underline; }
-
-@media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; }
-}
-</style>
+        /* Responsive */
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            header h1 { font-size: 1.5rem; }
+            .tab-btn { padding: 8px 14px; font-size: 0.85rem; }
+            .script-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <header>
+            <h1>📜 Tổng Hợp Script</h1>
+            <p>Dữ liệu được tải tự động từ kho lưu trữ</p>
+        </header>
 
-<!-- THANH MENU ĐIỀU HƯỚNG -->
-<nav class="top-nav">
-  <a href="#home" class="nav-link active" data-target="home">🏠 Trang Chủ</a>
-  <a href="#steal-an-egg" class="nav-link" data-target="steal-an-egg">🥚 Steal An Egg</a>
-  <a href="#blox-fruits" class="nav-link" data-target="blox-fruits">🍇 Blox Fruits</a>
-</nav>
+        <input
+            type="text"
+            id="searchInput"
+            class="search-box"
+            placeholder="🔍 Tìm kiếm script theo tên..."
+        >
 
-<div class="wrap">
-  <!-- HEADER -->
-  <header>
-    <h1>Kho Script Game</h1>
-    <p>Tổng hợp script <strong>Steal An Egg</strong> và <strong>Blox Fruits</strong>. Bấm biểu tượng <strong>Copy</strong> ở góc script để lấy mã.</p>
+        <!-- Tabs danh mục sẽ được tạo tự động ở đây -->
+        <div id="tabsContainer" class="tabs"></div>
 
-    <div class="search-wrap">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
-      <input id="search" type="search" placeholder="Tìm script theo tên, mô tả, tag..." autocomplete="off" />
-    </div>
-  </header>
-
-  <!-- MAIN (CHỨA CÁC TRANG) -->
-  <main>
-    
-    <!-- TRANG 1: TRANG CHỦ -->
-    <div id="view-home" class="view active">
-      <div class="hero-box">
-        <h2>Chào mừng đến với Script Hub!</h2>
-        <p>Chọn một danh mục bên dưới để xem các script mới nhất.</p>
-        <div class="btn-group">
-          <a href="#steal-an-egg" class="btn-hero">Xem Steal An Egg</a>
-          <a href="#blox-fruits" class="btn-hero">Xem Blox Fruits</a>
-        </div>
-      </div>
+        <!-- Nội dung các danh mục sẽ được tạo tự động ở đây -->
+        <div id="contentContainer"></div>
     </div>
 
-    <!-- TRANG 2: STEAL AN EGG -->
-    <div id="view-steal-an-egg" class="view">
-      <div class="section-head">
-        <span class="bar"></span>
-        <h2>Steal An Egg</h2>
-        <span class="count" id="count-egg">0 script</span>
-      </div>
-      <div id="loading-egg" class="loading-text">⏳ Đang tải script...</div>
-      <div class="grid" id="grid-egg"></div>
-    </div>
+    <script>
+        // ============================================================
+        // 1. CẤU HÌNH: URL RAW JSON CỦA BẠN
+        // ============================================================
+        const JSON_URL = 'https://raw.githubusercontent.com/bn130189-lgtm/Tong-hop-script/main/script.json';
 
-    <!-- TRANG 3: BLOX FRUITS -->
-    <div id="view-blox-fruits" class="view">
-      <div class="section-head">
-        <span class="bar"></span>
-        <h2>Blox Fruits</h2>
-        <span class="count" id="count-blox">0 script</span>
-      </div>
-      <div id="loading-blox" class="loading-text">⏳ Đang tải script...</div>
-      <div class="grid" id="grid-blox"></div>
-    </div>
+        // ============================================================
+        // 2. BIẾN TOÀN CỤC
+        // ============================================================
+        let allData = {};          // Dữ liệu gốc từ JSON
+        let currentCategory = '';  // Danh mục đang chọn
+        let searchKeyword = '';    // Từ khóa tìm kiếm
 
-  </main>
+        // ============================================================
+        // 3. HÀM TẢI DỮ LIỆU
+        // ============================================================
+        async function loadData() {
+            const tabsContainer = document.getElementById('tabsContainer');
+            const contentContainer = document.getElementById('contentContainer');
 
-  <footer>
-    © <span id="year"></span> Script Hub · Chỉ dùng cho mục đích học tập / cá nhân.<br />
-    Host miễn phí bằng <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>.
-  </footer>
-</div>
+            tabsContainer.innerHTML = '';
+            contentContainer.innerHTML = '<div class="status-msg">⏳ Đang tải dữ liệu...</div>';
 
-<div class="toast" id="toast" role="status" aria-live="polite">Copied!</div>
+            try {
+                const response = await fetch(JSON_URL);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                allData = await response.json();
 
-<script>
-/* =========================================================================
-   CẤU HÌNH ĐƯỜNG DẪN DỮ LIỆU
-   ========================================================================= */
-const SCRIPT_DATA_URL = "https://raw.githubusercontent.com/BralyKenjo/BralyKenjo.github.io/main/scripts.json";
+                const categories = Object.keys(allData);
+                if (categories.length === 0) {
+                    contentContainer.innerHTML = '<div class="status-msg">📭 Không có dữ liệu.</div>';
+                    return;
+                }
 
-/* =========================================================================
-   PHẦN LOGIC CHUYỂN TRANG (ROUTING)
-   ========================================================================= */
-function handleRouting() {
-  let hash = window.location.hash.replace('#', '') || 'home';
-  const validViews = ['home', 'steal-an-egg', 'blox-fruits'];
-  if (!validViews.includes(hash)) hash = 'home';
+                // Tạo tabs
+                tabsContainer.innerHTML = categories.map((cat, index) => {
+                    const isActive = index === 0 ? 'active' : '';
+                    return `<button class="tab-btn ${isActive}" data-category="${cat}">${cat}</button>`;
+                }).join('');
 
-  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-  const targetView = document.getElementById('view-' + hash);
-  if (targetView) targetView.classList.add('active');
+                // Gán sự kiện cho tabs
+                tabsContainer.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        currentCategory = btn.dataset.category;
+                        renderCategory(currentCategory, searchKeyword);
+                    });
+                });
 
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('data-target') === hash) {
-      link.classList.add('active');
-    }
-  });
+                // Chọn tab đầu tiên
+                currentCategory = categories[0];
+                renderCategory(currentCategory, searchKeyword);
 
-  document.getElementById('search').value = '';
-  filterCards('');
-}
+            } catch (err) {
+                console.error('Lỗi tải dữ liệu:', err);
+                contentContainer.innerHTML = `<div class="status-msg error">❌ Không thể tải dữ liệu. Lỗi: ${err.message}</div>`;
+            }
+        }
 
-window.addEventListener('hashchange', handleRouting);
+        // ============================================================
+        // 4. HÀM HIỂN THỊ DANH MỤC (có lọc theo từ khóa)
+        // ============================================================
+        function renderCategory(category, keyword = '') {
+            const contentContainer = document.getElementById('contentContainer');
+            const scripts = allData[category] || [];
 
-/* =========================================================================
-   PHẦN LOGIC CHUNG (COPY, RENDER, SEARCH)
-   ========================================================================= */
-function escapeHtml(str) {
-  return String(str == null ? "" : str).replace(/[&<>\"']/g, function (c) {
-    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
-  });
-}
+            // Lọc theo từ khóa (không phân biệt hoa thường)
+            const filtered = keyword
+                ? scripts.filter(s => s.Name.toLowerCase().includes(keyword.toLowerCase()))
+                : scripts;
 
-const toastEl = document.getElementById("toast");
-let toastTimer = null;
+            if (filtered.length === 0) {
+                contentContainer.innerHTML = `<div class="status-msg">🔎 Không tìm thấy script nào${keyword ? ` với từ khóa "${keyword}"` : ''}.</div>`;
+                return;
+            }
 
-function showToast(message) {
-  toastEl.textContent = message;
-  toastEl.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1000);
-}
+            const cards = filtered.map(script => `
+                <div class="script-card">
+                    <div class="script-name">${escapeHtml(script.Name)}</div>
+                    <div class="script-url">${escapeHtml(script.Url)}</div>
+                    <button class="copy-btn" data-url="${escapeAttr(script.Url)}">📋 Sao chép link</button>
+                </div>
+            `).join('');
 
-async function copyToClipboard(text) {
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(text);
-      return true;
-    }
-  } catch (e) {}
-  try {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.cssText = "position:fixed;top:-1000px;left:-1000px;opacity:0;";
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    return true;
-  } catch (e) { return false; }
-}
+            contentContainer.innerHTML = `<div class="script-grid">${cards}</div>`;
 
-const SVG_COPY = `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
-const SVG_CHECK = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            // Gán sự kiện sao chép
+            contentContainer.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const url = btn.dataset.url;
+                    navigator.clipboard.writeText(url).then(() => {
+                        const original = btn.textContent;
+                        btn.textContent = '✅ Đã sao chép!';
+                        setTimeout(() => { btn.textContent = original; }, 1500);
+                    }).catch(() => alert('Không thể sao chép. Vui lòng sao chép thủ công.'));
+                });
+            });
+        }
 
-function buildCard(script, index) {
-  const card = document.createElement("article");
-  card.className = "card";
-  card.style.animationDelay = (index * 60) + "ms";
+        // ============================================================
+        // 5. HÀM HỖ TRỢ CHỐNG XSS CƠ BẢN
+        // ============================================================
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+        function escapeAttr(str) {
+            return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
 
-  card.dataset.search = [script.name, script.desc, (script.tags || []).join(" ")].join(" ").toLowerCase();
+        // ============================================================
+        // 6. SỰ KIỆN TÌM KIẾM
+        // ============================================================
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            searchKeyword = e.target.value.trim();
+            if (currentCategory) {
+                renderCategory(currentCategory, searchKeyword);
+            }
+        });
 
-  const tagsHtml = (script.tags && script.tags.length)
-    ? '<div class="tags">' + script.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("") + "</div>"
-    : "";
-
-  card.innerHTML = `
-    <div class="card-top">
-      <div class="card-icon">${escapeHtml(script.icon || "📜")}</div>
-      <div>
-        <h3 class="card-title">${escapeHtml(script.name)}</h3>
-        <p class="card-desc">${escapeHtml(script.desc)}</p>
-      </div>
-    </div>
-    ${tagsHtml}
-    <div class="code-container">
-      <button type="button" class="btn-copy-icon" title="Copy Script">${SVG_COPY}</button>
-      <pre class="code"><code></code></pre>
-    </div>`;
-
-  card.querySelector("code").textContent = script.code || "";
-  const copyBtn = card.querySelector(".btn-copy-icon");
-
-  copyBtn.addEventListener("click", async () => {
-    const ok = await copyToClipboard(script.code || "");
-    if (!ok) return showToast("❌ Không thể copy, hãy thử lại!");
-
-    copyBtn.classList.add("copied");
-    copyBtn.innerHTML = SVG_CHECK;
-    showToast("✅ Đã copy: " + script.name);
-
-    clearTimeout(copyBtn._timer);
-    copyBtn._timer = setTimeout(() => {
-      copyBtn.classList.remove("copied");
-      copyBtn.innerHTML = SVG_COPY;
-    }, 1000);
-  });
-
-  return card;
-}
-
-function renderScripts(gridId, list) {
-  const grid = document.getElementById(gridId);
-  grid.innerHTML = "";
-  list.forEach((script, i) => grid.appendChild(buildCard(script, i)));
-}
-
-function updateCount(id, list) {
-  document.getElementById(id).textContent = list.length + " script";
-}
-
-function filterCards(query) {
-  const q = query.trim().toLowerCase();
-  const activeView = document.querySelector('.view.active');
-  if (!activeView) return;
-
-  activeView.querySelectorAll(".card").forEach(card => {
-    const match = (card.dataset.search || "").indexOf(q) !== -1;
-    card.style.display = match ? "" : "none";
-  });
-}
-
-document.getElementById("search").addEventListener("input", (e) => {
-  filterCards(e.target.value);
-});
-
-/* =========================================================================
-   HÀM TẢI DỮ LIỆU TỪ RAW GITHUB
-   ========================================================================= */
-async function loadDataFromRaw() {
-  document.getElementById("loading-egg").style.display = "block";
-  document.getElementById("loading-blox").style.display = "block";
-
-  try {
-    const response = await fetch(SCRIPT_DATA_URL);
-    if (!response.ok) {
-      throw new Error(`Lỗi HTTP: ${response.status} (Không tìm thấy file hoặc link sai)`);
-    }
-    const data = await response.json();
-
-    const eggScripts = data.stealAnEgg || [];
-    renderScripts("grid-egg", eggScripts);
-    updateCount("count-egg", eggScripts);
-
-    const bloxScripts = data.bloxFruits || [];
-    renderScripts("grid-blox", bloxScripts);
-    updateCount("count-blox", bloxScripts);
-
-  } catch (error) {
-    console.error("Lỗi khi tải dữ liệu:", error);
-    const errorMsg = `
-      <div style="color: #ef4444; padding: 20px; grid-column: 1 / -1; text-align: center; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 10px;">
-        <h3>❌ Không thể tải script</h3>
-        <p style="font-size: 13px; margin-top: 8px;">${error.message}</p>
-        <p style="font-size: 12px; color: #a1a1aa; margin-top: 8px;">
-          Vui lòng kiểm tra:<br>
-          1. Link raw có đúng là: <br><code style="color: #fbbf24;">${SCRIPT_DATA_URL}</code> không?<br>
-          2. Bạn đang chạy file này bằng <b>Live Server</b> hoặc <b>GitHub Pages</b> chứ? (Không mở trực tiếp file HTML bằng cách nhấp đúp).
-        </p>
-      </div>`;
-    document.getElementById("grid-egg").innerHTML = errorMsg;
-    document.getElementById("grid-blox").innerHTML = errorMsg;
-  } finally {
-    document.getElementById("loading-egg").style.display = "none";
-    document.getElementById("loading-blox").style.display = "none";
-  }
-}
-
-/* ---------------------- KHỞI TẠO ---------------------- */
-handleRouting();
-loadDataFromRaw();
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+        // ============================================================
+        // 7. KHỞI CHẠY
+        // ============================================================
+        loadData();
+    </script>
 </body>
 </html>
