@@ -38,7 +38,7 @@
   display:flex;
   align-items:center;
   gap:14px;
-  min-width:0; /* SỬA LỖI GIAO DIỆN Ở ĐÂY */
+  min-width:0;
   padding:16px 18px;
   border:1px solid var(--line);
   border-radius:13px;
@@ -66,7 +66,6 @@
   background:#202b3b;
   font-size:19px;
 }
-/* SỬA LỖI GIAO DIỆN CHỮ BỊ ÉP DỌC */
 .category-card > span:nth-child(2) {
   min-width: 0;
   flex: 1;
@@ -273,6 +272,84 @@ body[data-theme="night"] .search-result{background:#172943;color:#e1edfc}
 body[data-theme="night"] .search-result:hover,body[data-theme="night"] .search-result:focus-visible{border-color:#426895;background:#203752}
 body[data-theme="night"] .search-result span,body[data-theme="night"] .search-empty{color:#a1b3ca}
 @media(prefers-reduced-motion:reduce){body,.sidebar,.panel,.info,.info-head,.info-item,.feature,.script,.category-card,.category-card-icon,.back-button,.rating button,.side-link,.script-dialog,.dialog-code,.dialog-close,.search-results,.search-result,.script-search input{transition:none!important}}
+  </style>
+  <style>
+    /* ===== LAYOUT DÀNH RIÊNG CHO PC ===== */
+    body.is-pc .layout {
+      max-width: 1400px;
+    }
+
+    /* Ô script và danh mục rộng rãi, tự co giãn theo màn hình */
+    body.is-pc .category-cards {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+    body.is-pc .script-list {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    body.is-pc .script {
+      min-height: 90px;
+    }
+
+    /* Đảm bảo chữ không bị ép dọc */
+    body.is-pc .category-card,
+    body.is-pc .script {
+      min-width: 0;
+    }
+    body.is-pc .category-card strong,
+    body.is-pc .category-card small,
+    body.is-pc .script-main strong,
+    body.is-pc .script-description,
+    body.is-pc .script h3,
+    body.is-pc .script p {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    /* Màn hình PC vừa (<= 1280px): đưa sidebar phải xuống dưới, content rộng ra */
+    @media (max-width: 1280px) {
+      body.is-pc .layout {
+        grid-template-columns: 1fr;
+      }
+      body.is-pc .right {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 20px;
+      }
+    }
+    @media (max-width: 900px) and (min-width: 641px) {
+      body.is-pc .right {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* ===== LAYOUT MOBILE: GIỮ NGUYÊN GIAO DIỆN HIỆN TẠI ===== */
+    body.is-mobile .category-cards,
+    body.is-mobile .script-list {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 640px) {
+      body.is-mobile .app { display: block; }
+      body.is-mobile .sidebar {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: 10px 14px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      body.is-mobile .nav-label { display: none; }
+      body.is-mobile .nav { display: flex; gap: 5px; overflow: auto; }
+      body.is-mobile .nav a { flex: 0 0 auto; padding: 8px 10px; font-size: 11px; }
+      body.is-mobile .nav-icon { display: none; }
+      body.is-mobile main { padding: 18px 13px 28px; }
+      body.is-mobile .right { grid-template-columns: 1fr; }
+      body.is-mobile .info-grid { grid-template-columns: 1fr; }
+      body.is-mobile .info-item:nth-child(odd) { border-right: 0; }
+      body.is-mobile .info-item.wide { grid-column: auto; }
+      body.is-mobile .feature-list { grid-template-columns: 1fr; }
+      body.is-mobile .article { padding: 19px; }
+      body.is-mobile .footer { flex-direction: column; }
+    }
   </style>
 </head>
 <body>
@@ -712,6 +789,23 @@ body[data-theme="night"] .search-result span,body[data-theme="night"] .search-em
       }
       applyTheme();
       window.setInterval(applyTheme, 60000);
+    })();
+  </script>
+  <script>
+    (function detectDevice() {
+      var ua = navigator.userAgent || '';
+      var isMobileUA = /Mobi|Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Opera Mini|IEMobile/i.test(ua);
+      var isSmallScreen = window.matchMedia('(max-width: 640px)').matches;
+      var isTouchOnly = ('ontouchstart' in window) && !window.matchMedia('(any-pointer: fine)').matches;
+
+      var body = document.body;
+      function apply() {
+        var nowMobile = isMobileUA || window.matchMedia('(max-width: 640px)').matches || isTouchOnly;
+        body.classList.remove('is-mobile', 'is-pc');
+        body.classList.add(nowMobile ? 'is-mobile' : 'is-pc');
+      }
+      apply();
+      window.addEventListener('resize', apply);
     })();
   </script>
 </body>
