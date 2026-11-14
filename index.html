@@ -38,7 +38,7 @@
   display:flex;
   align-items:center;
   gap:14px;
-  min-width:0;
+  min-width:0; /* SỬA LỖI GIAO DIỆN Ở ĐÂY */
   padding:16px 18px;
   border:1px solid var(--line);
   border-radius:13px;
@@ -66,7 +66,16 @@
   background:#202b3b;
   font-size:19px;
 }
-.category-card strong,.category-card small{display:block}
+/* SỬA LỖI GIAO DIỆN CHỮ BỊ ÉP DỌC */
+.category-card > span:nth-child(2) {
+  min-width: 0;
+  flex: 1;
+}
+.category-card strong,.category-card small{
+  display:block;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
 .category-card strong{font-size:13px}
 .category-card small{margin-top:4px;color:var(--muted);font-size:11px}
 .category-arrow{margin-left:auto;color:#8dbaff;font-size:17px}
@@ -95,7 +104,11 @@ button.script{
   text-align:left;
   cursor:pointer;
 }
-.script-main{display:grid;gap:4px}
+.script-main{display:grid;gap:4px;min-width:0;}
+.script-main strong,.script-description,.script h3,.script p{
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
 .script-main strong{font-size:14px}
 .script-description{color:var(--muted);font-size:11px}
 .script-state{white-space:nowrap}
@@ -195,6 +208,7 @@ body{background:radial-gradient(ellipse at 70% -20%,rgba(64,145,241,.17),transpa
 .search-results[hidden]{display:none!important}
 .search-result{display:grid;gap:3px;width:100%;padding:10px 11px;border:1px solid transparent;border-radius:8px;background:#f5f9ff;color:#203957;text-align:left;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
 .search-result:hover,.search-result:focus-visible{border-color:#b9d5f3;background:#eaf3ff;transform:translateX(2px);outline:none}
+.search-result strong,.search-result span{overflow-wrap:anywhere;word-break:break-word;}
 .search-result strong{font-size:12px}
 .search-result span,.search-empty{margin:0;color:#70839c;font-size:10px}
 .search-empty{padding:10px}
@@ -377,44 +391,71 @@ body[data-theme="night"] .search-result span,body[data-theme="night"] .search-em
         if(typeof value === 'string' || typeof value === 'number') return String(value).trim();
         return '';
       }
+
+      function formatCategory(str) {
+        if (!str) return 'Steal An Egg';
+        var lower = str.toLowerCase();
+        if (lower.includes('break and steal') || lower.includes('break & steal')) return 'Break and Steal Egg';
+        if (lower.includes('steal an egg')) return 'Steal An Egg';
+        if (lower.includes('blox fruit')) return 'Blox Fruits';
+        return str.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+      }
+
       function recordCategory(value, path, name, description){
-        // Lấy tên game/category thực tế từ JSON
         var raw = value.game || value.gameName || value.game_name || value.category || value.categoryName || value.category_name || value.game_title || value.Game || value.Category || '';
         var meta = textValue(raw);
-        if(meta) return meta;
-        // Dùng key của object nếu không có game/category
+        if(meta) return formatCategory(meta);
         if(path && path.length){
           var lastKey = path[path.length - 1];
           if(!/^(data|scripts|list|items|records|hub|hubs|games|categories)$/i.test(lastKey)){
-            return lastKey.replace(/[_&]/g, ' ').replace(/\s+/g, ' ').trim();
+            return formatCategory(lastKey.replace(/[_&]/g, ' ').replace(/\s+/g, ' ').trim());
           }
         }
-        // Dùng tên script làm category nếu không còn cách nào
         if(name && !/^(data|scripts|list|items|records|hub|hubs|games|categories)$/i.test(name)){
-          return name;
+          return formatCategory(name);
         }
         return 'Steal An Egg';
       }
+
       function codeValue(value){
         var keys = ['scriptCode','script_code','scriptContent','script_content','sourceCode','source_code','code','source','script','lua','raw','loadstring'];
         for(var i = 0; i < keys.length; i++){
           var candidate = value[keys[i]];
-          if(typeof candidate === 'string' && candidate.trim()) return candidate.trim();
+          if(typeof candidate === 'string' && candidate.trim()) {
+             var trimmed = candidate.trim();
+             // Chỉ lấy nếu có chứa loadstring
+             if (/loadstring/i.test(trimmed)) {
+                 return trimmed;
+             }
+          }
         }
         return '';
       }
+
       function toRecord(value, key, path){
         if(typeof value === 'string'){
-          return value.trim() ? {name:value.trim(), description:'', category:path[path.length-1]||'Steal An Egg', code:''} : null;
+          return value.trim() ? {name:value.trim(), description:'', category:formatCategory(path[path.length-1]||'Steal An Egg'), code:''} : null;
         }
         if(!value || typeof value !== 'object' || Array.isArray(value)) return null;
-        var name = textValue(value.name || value.title || value.scriptName || value.script_name || value.hub || value.Name || value.Title);
+        var name = textValue(value.Name || value.name || value.title || value.scriptName || value.script_name || value.hub || value.Title);
         var description = textValue(value.description || value.desc || value.details || value.info || value.features || value.mô_tả || value.MoTa);
+        
+        var urlStr = textValue(value.Url || value.url || value.link || value.Link || '');
+        var url = '';
+        // Trích xuất URL trực tiếp nếu chuỗi truyền vào là loadstring
+        var urlMatch = urlStr.match(/(?:https?:\/\/[^\s'"]+)/i);
+        if (urlMatch) {
+            url = urlMatch[0];
+        } else {
+            url = urlStr;
+        }
+
         var hasNested = Object.keys(value).some(function(prop){ return value[prop] && typeof value[prop] === 'object'; });
         if(!name && !hasNested && key) name = key;
         if(!name) return null;
-        return {name:name, description:description, category:recordCategory(value, path, name, description), code:codeValue(value)};
+        return {name:name, description:description, category:recordCategory(value, path, name, description), code:codeValue(value), url: url};
       }
+
       function findRecords(data){
         var found = [];
         function visit(value, path, key){
@@ -447,6 +488,7 @@ body[data-theme="night"] .search-result span,body[data-theme="night"] .search-em
         });
         return Array.from(unique.values());
       }
+
       function keyFor(name){ return name.toLocaleLowerCase().replace(/[^a-z0-9]/g, ''); }
       var allRecords = originalItems.slice();
       var categoryCards = document.getElementById('category-cards');
@@ -528,15 +570,63 @@ body[data-theme="night"] .search-result span,body[data-theme="night"] .search-em
         document.getElementById('trang-chu').scrollIntoView({behavior:'smooth', block:'start'});
       });
 
-      function openRecord(index){
+      async function openRecord(index){
         selectedRecord = allRecords[index];
         if(!selectedRecord) return;
-        document.getElementById('dialog-title').textContent = selectedRecord.name;
-        document.getElementById('dialog-description').textContent = selectedRecord.description || 'Không có mô tả bổ sung.';
-        document.getElementById('dialog-code').textContent = selectedRecord.code || 'Mục JSON này không có nội dung script để sao chép.';
-        document.getElementById('dialog-hint').textContent = selectedRecord.code ? 'Kiểm tra nội dung trước khi sử dụng.' : 'Chỉ có thông tin mô tả trong dữ liệu nguồn.';
-        document.getElementById('copy-script').disabled = !selectedRecord.code;
-        dialog.showModal();
+
+        var dialogTitle = document.getElementById('dialog-title');
+        var dialogDesc = document.getElementById('dialog-description');
+        var dialogCode = document.getElementById('dialog-code');
+        var dialogHint = document.getElementById('dialog-hint');
+        var copyBtn = document.getElementById('copy-script');
+
+        dialogTitle.textContent = selectedRecord.name;
+        dialogDesc.textContent = selectedRecord.description || 'Không có mô tả bổ sung.';
+        dialogCode.textContent = '';
+        dialogHint.textContent = '';
+        copyBtn.disabled = true;
+        copyBtn.textContent = 'Sao chép';
+
+        if (selectedRecord.code) {
+          // Đã có sẵn code chứa loadstring từ JSON
+          dialogCode.textContent = selectedRecord.code;
+          dialogHint.textContent = 'Định dạng Loadstring (từ dữ liệu JSON).';
+          copyBtn.disabled = false;
+          dialog.showModal();
+        } else if (selectedRecord.url) {
+          dialogCode.textContent = 'Đang kiểm tra liên kết và chuyển đổi sang Loadstring...\nVui lòng chờ trong giây lát.';
+          dialogHint.textContent = 'Đang kết nối...';
+          dialog.showModal();
+
+          try {
+            var response = await fetch(selectedRecord.url);
+            if (!response.ok) throw new Error('Mã lỗi HTTP: ' + response.status);
+            var text = await response.text();
+            text = text.trim();
+
+            var finalCode = '';
+            // Kiểm tra xem nội dung tải về đã là loadstring chưa
+            if (/loadstring\s*\(\s*(?:game:HttpGet\s*\(\s*)?['"]([^'"]+)['"]\s*\)?\s*\)/i.test(text)) {
+                finalCode = text;
+            } else {
+                // Nếu là code thô, tự động bọc thành loadstring
+                finalCode = `loadstring(game:HttpGet("${selectedRecord.url}"))()`;
+            }
+
+            selectedRecord.code = finalCode;
+            dialogCode.textContent = selectedRecord.code;
+            dialogHint.textContent = 'Đã tải xong (Tự động định dạng Loadstring).';
+            copyBtn.disabled = false;
+          } catch (error) {
+            dialogCode.textContent = 'Không thể tải script. Lỗi: ' + error.message + '\n\nBạn có thể mở liên kết trực tiếp bằng cách bấm vào đây:\n' + selectedRecord.url;
+            dialogHint.textContent = 'Lỗi tải xuống.';
+            copyBtn.disabled = true;
+          }
+        } else {
+          dialogCode.textContent = 'Mục này không có nội dung script hoặc liên kết để tải.';
+          dialogHint.textContent = 'Chỉ có thông tin mô tả trong dữ liệu nguồn.';
+          dialog.showModal();
+        }
       }
 
       groupRoot.addEventListener('click', function(event){
@@ -599,7 +689,6 @@ body[data-theme="night"] .search-result span,body[data-theme="night"] .search-em
         if(!response.ok) throw new Error('Không tải được dữ liệu');
         var records = findRecords(await response.json());
         if(!records.length) return;
-        records.reverse();
         var seen = new Set(records.map(function(item){ return keyFor(item.name); }));
         originalItems.forEach(function(item){
           var key = keyFor(item.name);
@@ -608,6 +697,7 @@ body[data-theme="night"] .search-result span,body[data-theme="night"] .search-em
         render(records);
       }catch(error){
         // Giữ danh sách tĩnh hiện có nếu không thể tải JSON.
+        console.warn("Lỗi tải JSON:", error);
       }
     })();
   </script>
